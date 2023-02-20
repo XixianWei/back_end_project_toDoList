@@ -1,5 +1,6 @@
 package com.example.toDoList.services;
 
+import com.example.toDoList.models.ToDoList;
 import com.example.toDoList.models.User;
 import com.example.toDoList.respositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUser(User user){
-        return userRepository.save(user);
+    public User updateUser(User user, Long id){
+        User userToUpdate = userRepository.findById(id).get();
+        userToUpdate.setName(userToUpdate.getName());
+        userToUpdate.setEmail(userToUpdate.getEmail());
+        return userRepository.save(userToUpdate);
     }
+
 
     public void deleteUser(Long id){
         userRepository.deleteById(id);

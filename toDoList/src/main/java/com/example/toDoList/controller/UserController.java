@@ -1,5 +1,6 @@
 package com.example.toDoList.controller;
 
+import com.example.toDoList.models.ToDoList;
 import com.example.toDoList.models.User;
 import com.example.toDoList.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +18,28 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    //add a new user
     @PostMapping
     public ResponseEntity<User> newUser(@RequestBody User user){
         userService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<User> updateUser(@RequestBody User user){
-        userService.updateUser(user);
+    //update a user by id
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable Long id){
+        userService.updateUser(user,id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    //get all users
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
+    //get a user by id
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id){
         Optional<User> user = userService.getUserById(id);
@@ -45,6 +50,7 @@ public class UserController {
         }
     }
 
+    //delete a user by id
     @DeleteMapping(value="/{id}")
     public ResponseEntity deleteUser(@PathVariable long id){
         userService.deleteUser(id);
