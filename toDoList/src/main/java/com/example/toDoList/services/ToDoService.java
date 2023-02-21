@@ -31,13 +31,8 @@ public class ToDoService {
 
 
     //update to do list
-    public void updateToDo (ToDo toDo, Long id){
-        ToDo toDoToUpdate = toDoRepository.findById(id).get();
-        toDoToUpdate.setTitle(toDoToUpdate.getTitle());
-        toDoToUpdate.setDescription(toDoToUpdate.getDescription());
-        toDoToUpdate.setDue(toDoToUpdate.getDue());
-        toDoToUpdate.setDone(toDo.isDone());
-        toDoRepository.save(toDoToUpdate);
+    public ToDo updateToDo (ToDo toDo){
+        return toDoRepository.save(toDo);
     }
 
     //delete to do list

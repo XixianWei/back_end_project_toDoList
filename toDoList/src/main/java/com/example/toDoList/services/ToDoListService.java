@@ -29,10 +29,8 @@ public class ToDoListService {
 
 
     //update to do list
-    public void updateToDoList (ToDoList toDoList, Long id){
-        ToDoList listToUpdate = toDoListRepository.findById(id).get();
-        listToUpdate.setTitle(listToUpdate.getTitle());
-        toDoListRepository.save(listToUpdate);
+    public void updateToDoList (ToDoList toDoList){
+        toDoListRepository.save(toDoList);
     }
 
     //delete to do list
