@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping(value = "/to_do")
 public class ToDoController {
 
-    
+
     @Autowired
     ToDoService toDoService;
 
@@ -34,11 +34,11 @@ public class ToDoController {
         }
     }
 
-     @PostMapping
-        public ResponseEntity<ToDo> newToDo(@RequestBody ToDo toDo){
-            toDoService.saveToDo(toDo);
-            return new ResponseEntity<>(toDo, HttpStatus.CREATED);
-        }
+    @PostMapping
+    public ResponseEntity<ToDo> newToDo(@RequestBody ToDo toDo) {
+        toDoService.saveToDo(toDo);
+        return new ResponseEntity<>(toDo, HttpStatus.CREATED);
+    }
 
          @PutMapping(value = "/{id}")
             public ResponseEntity<ToDo> updateToDo (@RequestBody ToDo toDo, @PathVariable Long id){
@@ -47,10 +47,11 @@ public class ToDoController {
              return new ResponseEntity<>(toDo, HttpStatus.OK);
             }
 
-            @DeleteMapping(value = "/{id}")
-            public ResponseEntity<Long> deleteToDo(@PathVariable Long id){
-                toDoService.deleteToDo(id);
-                return new ResponseEntity<>(id, HttpStatus.OK);
-            }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Long> deleteToDo(@PathVariable Long id) {
+        toDoService.deleteToDo(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
 
 }

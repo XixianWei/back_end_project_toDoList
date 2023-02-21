@@ -32,8 +32,7 @@ public class ToDoService {
 
     //update to do list
     public ToDo updateToDo (ToDo toDo){
-        toDoRepository.save(toDo);
-        return toDo;
+        return toDoRepository.save(toDo);
     }
 
     //delete to do list
