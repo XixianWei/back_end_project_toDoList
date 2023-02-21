@@ -17,12 +17,19 @@ public class ToDoList {
     private String title;
 
     @OneToMany(mappedBy = "to_do_list")
-    @JsonIgnoreProperties({"to_do_list"})
+    @JsonIgnoreProperties({"to_do_lists"})
     private List<ToDo> toDos;
 
-    public ToDoList(String title, List<ToDo> toDos) {
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties ({"to_do_lists"})
+    private User user;
+
+    public ToDoList(String title, List<ToDo> toDos, User user) {
         this.title = title;
         this.toDos = new ArrayList<>();
+        this.user = user;
+
     }
 
     public ToDoList() {
@@ -42,5 +49,13 @@ public class ToDoList {
 
     public void setToDos(List<ToDo> toDos) {
         this.toDos = toDos;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
