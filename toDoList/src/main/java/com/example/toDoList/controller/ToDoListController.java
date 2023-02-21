@@ -42,7 +42,8 @@ public class ToDoListController {
     //update to do list
     @PutMapping(value = "/{id}")
     public ResponseEntity<ToDoList> updateToDoList (@RequestBody ToDoList toDoList, @PathVariable Long id){
-        toDoListService.updateToDoList(toDoList, id);
+        toDoList.setId(id);
+        toDoListService.updateToDoList(toDoList);
         return new ResponseEntity<>(toDoList, HttpStatus.OK);
     }
 

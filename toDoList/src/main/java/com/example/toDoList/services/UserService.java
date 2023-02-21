@@ -27,11 +27,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUser(User user, Long id){
-        User userToUpdate = userRepository.findById(id).get();
-        userToUpdate.setName(userToUpdate.getName());
-        userToUpdate.setEmail(userToUpdate.getEmail());
-        return userRepository.save(userToUpdate);
+    public User updateUser(User user){
+        return userRepository.save(user);
     }
 
 

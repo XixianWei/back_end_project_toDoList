@@ -38,8 +38,7 @@ public class ToDo {
         this.toDoList = toDoList;
     }
 
-    public ToDo() {
-    }
+    public ToDo() {}
 
     public long getId() {
         return id;

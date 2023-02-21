@@ -41,9 +41,10 @@ public class ToDoController {
         }
 
          @PutMapping(value = "/{id}")
-            public ResponseEntity<ToDo> update (@RequestBody ToDo toDo, @PathVariable Long id){
-                toDoService.updateToDo(toDo, id);
-                return new ResponseEntity<>(toDo, HttpStatus.OK);
+            public ResponseEntity<ToDo> updateToDo (@RequestBody ToDo toDo, @PathVariable Long id){
+             toDo.setId(id);
+             toDoService.updateToDo(toDo);
+             return new ResponseEntity<>(toDo, HttpStatus.OK);
             }
 
             @DeleteMapping(value = "/{id}")
