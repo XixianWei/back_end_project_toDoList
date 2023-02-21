@@ -16,7 +16,7 @@ public class ToDoList {
     @Column
     private String title;
 
-    @OneToMany(mappedBy = "to_do_list")
+    @OneToMany(mappedBy = "toDoList")
     @JsonIgnoreProperties({"to_do_lists"})
     private List<ToDo> toDos;
 

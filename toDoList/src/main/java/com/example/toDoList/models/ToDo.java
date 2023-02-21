@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity(name = "toDo")
+@Entity(name = "to_do")
 public class ToDo {
 
     @Id
