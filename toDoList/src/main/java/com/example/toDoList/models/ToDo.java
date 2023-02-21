@@ -30,7 +30,7 @@ public class ToDo {
     private ToDoList toDoList;
 
 
-    public ToDo(String title, String description, String due, ToDoList toDoList) {
+    public ToDo (String title, String description, String due, ToDoList toDoList) {
         this.title = title;
         this.description = description;
         this.due = due;
