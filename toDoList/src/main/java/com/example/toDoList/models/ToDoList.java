@@ -3,8 +3,11 @@ package com.example.toDoList.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity (name = "to_do_lists")
 public class ToDoList {
@@ -16,6 +19,9 @@ public class ToDoList {
     @Column
     private String title;
 
+    @Enumerated
+    ListCategory listCategory;
+
     @OneToMany(mappedBy = "toDoList")
     @JsonIgnoreProperties({"to_do_lists"})
     private List<ToDo> toDos;
@@ -25,10 +31,11 @@ public class ToDoList {
     @JsonIgnoreProperties ({"to_do_lists"})
     private User user;
 
-    public ToDoList(String title, List<ToDo> toDos, User user) {
+    public ToDoList(String title, List<ToDo> toDos, User user, ListCategory listCategory) {
         this.title = title;
         this.toDos = new ArrayList<>();
         this.user = user;
+        this.listCategory = listCategory;
 
     }
 
@@ -65,5 +72,13 @@ public class ToDoList {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public ListCategory getListCategory() {
+        return listCategory;
+    }
+
+    public void setListCategory(ListCategory listCategory) {
+        this.listCategory = listCategory;
     }
 }

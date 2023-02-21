@@ -1,5 +1,6 @@
 package com.example.toDoList.services;
 
+import com.example.toDoList.models.ListCategory;
 import com.example.toDoList.models.ToDoList;
 import com.example.toDoList.respositories.ToDoListRepository;
 
@@ -36,6 +37,10 @@ public class ToDoListService {
     //delete to do list
     public void deleteToDoList(Long id){
         toDoListRepository.deleteById(id);
+    }
+
+    public List<ToDoList> findAllListsByCategory(ListCategory listCategory){
+        return toDoListRepository.findByListCategory(listCategory);
     }
 
 

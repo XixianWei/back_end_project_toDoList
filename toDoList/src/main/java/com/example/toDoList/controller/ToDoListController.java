@@ -1,5 +1,6 @@
 package com.example.toDoList.controller;
 
+import com.example.toDoList.models.ListCategory;
 import com.example.toDoList.models.ToDoList;
 import com.example.toDoList.services.ToDoListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,11 @@ public class ToDoListController {
     public ResponseEntity<Long> deleteToDoList(@PathVariable Long id){
         toDoListService.deleteToDoList(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/category")
+    public List<ToDoList> getToDoListByCategory(@RequestParam ListCategory listCategory){
+        return toDoListService.findAllListsByCategory(listCategory);
     }
 
 
