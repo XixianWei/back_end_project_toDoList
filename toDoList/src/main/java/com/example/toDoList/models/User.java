@@ -23,13 +23,13 @@ public class User {
 
     @JsonIgnoreProperties({"users"})
     @OneToMany
-    private List<ToDo> toDos;
+    private List<ToDoList> toDoLists;
 
     //constructors
-    public User(String name, String email, List<ToDo> toDos) {
+    public User(String name, String email, List<ToDoList> toDoLists) {
         this.name = name;
         this.email = email;
-        this.toDos = new ArrayList<>();
+        this.toDoLists = new ArrayList<>();
     }
 
     public User() {}
@@ -59,11 +59,11 @@ public class User {
         this.email = email;
     }
 
-    public List<ToDo> getToDos() {
-        return toDos;
+    public List<ToDoList> getToDos() {
+        return toDoLists;
     }
 
-    public void setToDos(List<ToDo> toDos) {
-        this.toDos = toDos;
+    public void setToDos(List<ToDoList> toDoLists) {
+        this.toDoLists = toDoLists;
     }
 }
