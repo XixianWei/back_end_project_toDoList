@@ -22,7 +22,7 @@ public class User {
     private String email;
 
     @JsonIgnoreProperties({"users"})
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<ToDoList> toDoLists;
 
     //constructors
