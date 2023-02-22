@@ -3,6 +3,7 @@ package com.example.toDoList.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity(name = "to_dos")
@@ -19,7 +20,7 @@ public class ToDo {
     private String description;
 
     @Column (name = "due")
-    private String due;
+    private LocalDate due;
 
     @Column (name = "done")
     private boolean done;
@@ -30,7 +31,7 @@ public class ToDo {
     private ToDoList toDoList;
 
 
-    public ToDo (String title, String description, String due, ToDoList toDoList) {
+    public ToDo (String title, String description, LocalDate due, ToDoList toDoList) {
         this.title = title;
         this.description = description;
         this.due = due;
@@ -64,11 +65,11 @@ public class ToDo {
         this.description = description;
     }
 
-    public String getDue() {
+    public LocalDate getDue() {
         return due;
     }
 
-    public void setDue(String due) {
+    public void setDue(LocalDate due) {
         this.due = due;
     }
 
