@@ -23,12 +23,12 @@ public class ToDoList {
     ListCategory listCategory;
 
     @OneToMany(mappedBy = "toDoList")
-    @JsonIgnoreProperties({"to_do_lists"})
+    @JsonIgnoreProperties({"toDoList"})
     private List<ToDo> toDos;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties ({"to_do_lists"})
+    @JsonIgnoreProperties ({"toDoLists"})
     private User user;
 
     public ToDoList(String title, List<ToDo> toDos, User user, ListCategory listCategory) {

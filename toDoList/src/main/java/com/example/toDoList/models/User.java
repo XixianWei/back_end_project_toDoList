@@ -21,8 +21,8 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @JsonIgnoreProperties({"users"})
     @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
     private List<ToDoList> toDoLists;
 
     //constructors
@@ -59,11 +59,11 @@ public class User {
         this.email = email;
     }
 
-    public List<ToDoList> getToDos() {
+    public List<ToDoList> getToDoLists() {
         return toDoLists;
     }
 
-    public void setToDos(List<ToDoList> toDoLists) {
+    public void setToDoLists(List<ToDoList> toDoLists) {
         this.toDoLists = toDoLists;
     }
 }

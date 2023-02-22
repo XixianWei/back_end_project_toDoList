@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/to_do")
+@RequestMapping(value = "/to_dos")
 public class ToDoController {
 
 

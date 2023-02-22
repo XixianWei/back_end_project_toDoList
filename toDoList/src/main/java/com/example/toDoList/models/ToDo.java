@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity(name = "to_do")
+@Entity(name = "to_dos")
 public class ToDo {
 
     @Id
@@ -26,7 +26,7 @@ public class ToDo {
 
     @ManyToOne
     @JoinColumn (name = "to_do_list_id")
-    @JsonIgnoreProperties({"to_do"})
+    @JsonIgnoreProperties({"toDos"})
     private ToDoList toDoList;
 
 
