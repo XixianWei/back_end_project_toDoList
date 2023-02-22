@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,12 +43,12 @@ public class ToDoController {
         return new ResponseEntity<>(toDo, HttpStatus.CREATED);
     }
 
-         @PutMapping(value = "/{id}")
-            public ResponseEntity<ToDo> updateToDo (@RequestBody ToDo toDo, @PathVariable Long id){
-             toDo.setId(id);
-             toDoService.updateToDo(toDo);
-             return new ResponseEntity<>(toDo, HttpStatus.OK);
-            }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ToDo> updateToDo(@RequestBody ToDo toDo, @PathVariable Long id) {
+        toDo.setId(id);
+        toDoService.updateToDo(toDo);
+        return new ResponseEntity<>(toDo, HttpStatus.OK);
+    }
 
 
     @DeleteMapping(value = "/{id}")
@@ -57,9 +58,21 @@ public class ToDoController {
     }
 
     @PutMapping(value = "/{id}/done")
-    public ResponseEntity<ToDo> deleteCompletedToDos(@PathVariable Long id){
+    public ResponseEntity<ToDo> deleteCompletedToDos(@PathVariable Long id) {
         toDoService.deleteDoneToDo(id);
-        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    //get all todos by due date
+    @GetMapping(value = "/to_dos/{dueDate}")
+    public ResponseEntity<List<ToDo>> getAllToDosByDueDate(@PathVariable LocalDate dueDate) {
+        List<ToDo> toDos = toDoService.findAllToDosByDueDate(dueDate);
+
+        if (toDos.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(toDos, HttpStatus.OK);
+        }
     }
 
 }

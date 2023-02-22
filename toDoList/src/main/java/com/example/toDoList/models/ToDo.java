@@ -20,7 +20,7 @@ public class ToDo {
     private String description;
 
     @Column (name = "due")
-    private LocalDate due;
+    private LocalDate dueDate;
 
     @Column (name = "done")
     private boolean done;
@@ -31,10 +31,10 @@ public class ToDo {
     private ToDoList toDoList;
 
 
-    public ToDo (String title, String description, LocalDate due, ToDoList toDoList) {
+    public ToDo (String title, String description, LocalDate dueDate, ToDoList toDoList) {
         this.title = title;
         this.description = description;
-        this.due = due;
+        this.dueDate = dueDate;
         this.done = false;
         this.toDoList = toDoList;
     }
@@ -66,11 +66,11 @@ public class ToDo {
     }
 
     public LocalDate getDue() {
-        return due;
+        return dueDate;
     }
 
     public void setDue(LocalDate due) {
-        this.due = due;
+        this.dueDate = due;
     }
 
     public boolean isDone() {

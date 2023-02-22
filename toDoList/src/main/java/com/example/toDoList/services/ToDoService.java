@@ -10,6 +10,7 @@ import com.example.toDoList.respositories.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,11 @@ public class ToDoService {
     //delete to do list
     public void deleteToDo(Long id){
         toDoRepository.deleteById(id);
+    }
+
+    //find list by due date
+    public List<ToDo> findAllToDosByDueDate(LocalDate dueDate){
+        return toDoRepository.findToDoByDueDate(dueDate);
     }
 
     public void deleteDoneToDo(Long id){
