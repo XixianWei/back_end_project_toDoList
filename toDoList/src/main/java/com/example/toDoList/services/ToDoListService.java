@@ -39,6 +39,7 @@ public class ToDoListService {
         toDoListRepository.deleteById(id);
     }
 
+    //find to do lists by category
     public List<ToDoList> findAllListsByCategory(ListCategory listCategory){
         return toDoListRepository.findByListCategory(listCategory);
     }

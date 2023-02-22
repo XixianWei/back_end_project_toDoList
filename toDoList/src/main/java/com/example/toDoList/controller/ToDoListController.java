@@ -54,11 +54,17 @@ public class ToDoListController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/category")
-    public List<ToDoList> getToDoListByCategory(@RequestParam ListCategory listCategory){
-        return toDoListService.findAllListsByCategory(listCategory);
+    // get lists by category
+    @GetMapping(value = "/category/{listCategory}")
+    public ResponseEntity<List<ToDoList>> getToDoListByCategory(@PathVariable ListCategory listCategory){
+        List<ToDoList> toDoLists = toDoListService.findAllListsByCategory(listCategory);
+
+        if(toDoLists.isEmpty()){
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+        else{
+            return new ResponseEntity<>(toDoLists,HttpStatus.OK);
+        }
     }
-
-
 
 }
