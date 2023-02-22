@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/to_do_list")
+@RequestMapping(value = "/to_do_lists")
 public class ToDoListController {
     @Autowired
     ToDoListService toDoListService;

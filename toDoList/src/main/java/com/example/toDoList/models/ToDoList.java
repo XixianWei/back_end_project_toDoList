@@ -22,7 +22,7 @@ public class ToDoList {
     @Enumerated
     ListCategory listCategory;
 
-    @OneToMany(mappedBy = "toDoList")
+    @OneToMany(mappedBy = "toDoList", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"toDoList"})
     private List<ToDo> toDos;
 
