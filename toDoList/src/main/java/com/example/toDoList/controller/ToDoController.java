@@ -5,6 +5,7 @@ import com.example.toDoList.models.ToDo;
 import com.example.toDoList.models.ToDoList;
 import com.example.toDoList.services.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,8 +65,8 @@ public class ToDoController {
     }
 
     //get all todos by due date
-    @GetMapping(value = "/to_dos/{dueDate}")
-    public ResponseEntity<List<ToDo>> getAllToDosByDueDate(@PathVariable LocalDate dueDate) {
+    @GetMapping(value = "/by_due_date/{dueDate}")
+    public ResponseEntity<List<ToDo>> getAllToDosByDueDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dueDate) {
         List<ToDo> toDos = toDoService.findAllToDosByDueDate(dueDate);
 
         if (toDos.isEmpty()) {
