@@ -1,13 +1,16 @@
 package com.example.toDoList.controller;
 
+import com.example.toDoList.models.ListCategory;
 import com.example.toDoList.models.ToDoList;
 import com.example.toDoList.models.User;
+import com.example.toDoList.models.UserDTO;
 import com.example.toDoList.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,9 +38,14 @@ public class UserController {
 
     //get all users
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers(){
+    public ResponseEntity<List<UserDTO>> getAllUsers(){
         List<User> users = userService.getAllUsers();
-        return new ResponseEntity<>(users,HttpStatus.OK);
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for(User user : users){
+            UserDTO userDTO =new UserDTO(user.getId(), user.getName(), user.getEmail());
+            userDTOS.add(userDTO);
+        }
+        return new ResponseEntity<>(userDTOS,HttpStatus.OK);
     }
 
     //get a user by id
