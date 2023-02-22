@@ -1,6 +1,8 @@
 package com.example.toDoList.controller;
 
+import com.example.toDoList.models.ListCategory;
 import com.example.toDoList.models.ToDo;
+import com.example.toDoList.models.ToDoList;
 import com.example.toDoList.services.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,6 +54,12 @@ public class ToDoController {
     public ResponseEntity<Long> deleteToDo(@PathVariable Long id) {
         toDoService.deleteToDo(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}/done")
+    public ResponseEntity<ToDo> deleteCompletedToDos(@PathVariable Long id){
+        toDoService.deleteDoneToDo(id);
+        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }
 
 }
