@@ -50,10 +50,11 @@ public class UserController {
 
     //get a user by id
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id){
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id){
         Optional<User> user = userService.getUserById(id);
         if(user.isPresent()){
-            return new ResponseEntity<>(user.get(),HttpStatus.OK);
+            UserDTO userDTO = new UserDTO(user.get().getId(), user.get().getName(), user.get().getEmail());
+            return new ResponseEntity<>(userDTO,HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
