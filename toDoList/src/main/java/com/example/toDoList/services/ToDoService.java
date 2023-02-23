@@ -51,6 +51,7 @@ public class ToDoService {
         return toDoRepository.findToDoByDueDate(dueDate);
     }
 
+
     public void deleteDoneToDo(Long id){
         // method to mark todo as done
         ToDo toDo = toDoRepository.findById(id).orElseThrow();
@@ -61,8 +62,6 @@ public class ToDoService {
         List<ToDo> toDos = toDoList.getToDos();
         toDos.remove(toDo);
         toDoListRepository.save(toDoList);
-
-
     }
 
 

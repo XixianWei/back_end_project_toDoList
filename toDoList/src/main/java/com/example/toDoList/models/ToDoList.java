@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity (name = "to_do_lists")
+@Entity
+@Table(name = "to_do_lists")
 public class ToDoList {
 
     @Id
@@ -81,4 +82,5 @@ public class ToDoList {
     public void setListCategory(ListCategory listCategory) {
         this.listCategory = listCategory;
     }
+
 }

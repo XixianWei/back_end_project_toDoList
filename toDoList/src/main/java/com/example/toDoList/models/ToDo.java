@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity(name = "to_dos")
+@Entity
+@Table(name = "to_dos")
 public class ToDo {
 
     @Id

@@ -66,6 +66,14 @@ public class UserController {
         return new ResponseEntity(id, HttpStatus.OK);
     }
 
+    // delete a user's to-do from their to-do list when done
+    @PutMapping("/{userId}/to-do-list/{toDoListId}/to-do/{toDoId}")
+    public void DeleteDoneToDo(@PathVariable Long userId, @PathVariable Long toDoListId, @PathVariable Long toDoId){
+        userService.markToDoAsDoneAndDelete(userId,toDoListId,toDoId);
+    }
+
+
+
 
 
 }

@@ -22,12 +22,14 @@ public class ToDoController {
     @Autowired
     ToDoService toDoService;
 
+    //get all to-dos
     @GetMapping
     public ResponseEntity<List<ToDo>> getAllToDo() {
         List<ToDo> toDo = toDoService.getAllToDos();
         return new ResponseEntity<>(toDo, HttpStatus.OK);
     }
 
+    // get a to-do by id
     @GetMapping(value = "/{id}")
     public ResponseEntity<ToDo> getToDoById(@PathVariable Long id) {
         Optional<ToDo> toDo = toDoService.getToDoById(id);
@@ -38,12 +40,14 @@ public class ToDoController {
         }
     }
 
+    //add a new to-do
     @PostMapping
     public ResponseEntity<ToDo> newToDo(@RequestBody ToDo toDo) {
         toDoService.saveToDo(toDo);
         return new ResponseEntity<>(toDo, HttpStatus.CREATED);
     }
 
+    //update a to-do by id
     @PutMapping(value = "/{id}")
     public ResponseEntity<ToDo> updateToDo(@RequestBody ToDo toDo, @PathVariable Long id) {
         toDo.setId(id);
@@ -52,16 +56,18 @@ public class ToDoController {
     }
 
 
+    // delete a to-do by id
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Long> deleteToDo(@PathVariable Long id) {
         toDoService.deleteToDo(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{id}/done")
-    public ResponseEntity<ToDo> deleteCompletedToDos(@PathVariable Long id) {
+    //delete a to-do when done
+    @PutMapping(value = "/{id}/delete_done")
+    public ResponseEntity<String> deleteCompletedToDos(@PathVariable Long id) {
         toDoService.deleteDoneToDo(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Done todos deleted successfully.",HttpStatus.NO_CONTENT);
     }
 
     //get all todos by due date
