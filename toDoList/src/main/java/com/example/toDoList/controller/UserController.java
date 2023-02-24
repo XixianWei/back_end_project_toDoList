@@ -75,12 +75,18 @@ public class UserController {
         return new ResponseEntity(id, HttpStatus.OK);
     }
 
-    // delete a user's to-do from their to-do list when done
-    @PutMapping("/{userId}/to-do-list/{toDoListId}/to-do/{toDoId}")
-    public void DeleteDoneToDo(@PathVariable Long userId, @PathVariable Long toDoListId, @PathVariable Long toDoId){
-        userService.markToDoAsDoneAndDelete(userId,toDoListId,toDoId);
-    }
+    // delete a user's to-do from their to-do list when done -- no return version
+//    @PutMapping("/{userId}/to-do-list/{toDoListId}/to-do/{toDoId}")
+//    public void DeleteDoneToDo(@PathVariable Long userId, @PathVariable Long toDoListId, @PathVariable Long toDoId){
+//        userService.markToDoAsDoneAndDelete(userId,toDoListId,toDoId);
+//    }
 
+    //delete a user's to-do from their to-do list when done
+    @PutMapping(value = "/{userId}/to-do-list/{toDoListId}/to-do/{toDoId}")
+    public ResponseEntity<String> DeleteDoneToDo(@PathVariable Long userId, @PathVariable Long toDoListId, @PathVariable Long toDoId) {
+        userService.markToDoAsDoneAndDelete(userId,toDoListId,toDoId);
+        return new ResponseEntity<>("Well done, you completed a to-do.",HttpStatus.OK);
+    }
 
 
 
