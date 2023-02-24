@@ -1,9 +1,6 @@
 package com.example.toDoList.controller;
 
-import com.example.toDoList.models.ListCategory;
-import com.example.toDoList.models.ToDoList;
-import com.example.toDoList.models.User;
-import com.example.toDoList.models.UserDTO;
+import com.example.toDoList.models.*;
 import com.example.toDoList.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,13 +45,24 @@ public class UserController {
         return new ResponseEntity<>(userDTOS,HttpStatus.OK);
     }
 
-    //get a user by id
+    //get a user by id -- only show the user
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id){
         Optional<User> user = userService.getUserById(id);
         if(user.isPresent()){
             UserDTO userDTO = new UserDTO(user.get().getId(), user.get().getName(), user.get().getEmail());
             return new ResponseEntity<>(userDTO,HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // get a user by id -- show the user and their to do list
+    @GetMapping(value = "/user-list/{id}")
+    public ResponseEntity<User> getUserByIdWithLists(@PathVariable Long id){
+        Optional<User> user = userService.getUserById(id);
+        if(user.isPresent()){
+            return new ResponseEntity<>(user.get(),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

@@ -1,13 +1,13 @@
 package com.example.toDoList.controller;
 
-import com.example.toDoList.models.ListCategory;
-import com.example.toDoList.models.ToDoList;
+import com.example.toDoList.models.*;
 import com.example.toDoList.services.ToDoListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +17,20 @@ public class ToDoListController {
     @Autowired
     ToDoListService toDoListService;
 
+
+    public static ToDoListDTO mapToDoListEntityToDTO(ToDoList toDoList) {
+        return new ToDoListDTO(toDoList.getId(), toDoList.getTitle(), toDoList.getListCategory());
+    }
+
     @GetMapping
-    public ResponseEntity<List<ToDoList>> getAllToDoLists(){
+    public ResponseEntity<List<ToDoListDTO>> getAllToDoLists(){
         List<ToDoList> toDoLists = toDoListService.getAllToDoLists();
-        return new ResponseEntity<>(toDoLists, HttpStatus.OK);
+        List<ToDoListDTO> toDoListDTOS = new ArrayList<>();
+        for(ToDoList toDoList : toDoLists){
+            ToDoListDTO toDoListDTO = new ToDoListDTO(toDoList.getId(),toDoList.getTitle(),toDoList.getListCategory());
+            toDoListDTOS.add(toDoListDTO);
+        }
+        return new ResponseEntity<>(toDoListDTOS, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
@@ -35,9 +45,19 @@ public class ToDoListController {
 
     //create a new to do list
     @PostMapping
-    public ResponseEntity<List<ToDoList>> newToDoList(@RequestBody ToDoList toDoList){
+    public ResponseEntity<List<ToDoListDTO>> newToDoList(@RequestBody ToDoListDTO toDoListDTO){
+        ToDoList toDoList = new ToDoList();
+        toDoList.setTitle(toDoListDTO.getTitle());
+        toDoList.setListCategory(toDoListDTO.getListCategory());
+
         toDoListService.saveToDoList(toDoList);
-        return new ResponseEntity<>(toDoListService.getAllToDoLists(), HttpStatus.CREATED);
+        List<ToDoList> toDoLists = toDoListService.getAllToDoLists();
+        List<ToDoListDTO> toDoListDTOS = new ArrayList<>();
+        for(ToDoList list : toDoLists){
+            ToDoListDTO dto = new ToDoListDTO(list.getId(), list.getTitle(), list.getListCategory());
+            toDoListDTOS.add(dto);
+        }
+        return new ResponseEntity<>(toDoListDTOS, HttpStatus.CREATED);
     }
 
     //update to do list
@@ -48,6 +68,7 @@ public class ToDoListController {
         return new ResponseEntity<>(toDoList, HttpStatus.OK);
     }
 
+    //delete a to do list
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Long> deleteToDoList(@PathVariable Long id){
         toDoListService.deleteToDoList(id);
@@ -56,15 +77,29 @@ public class ToDoListController {
 
     // get lists by category
     @GetMapping(value = "/category/{listCategory}")
-    public ResponseEntity<List<ToDoList>> getToDoListByCategory(@PathVariable ListCategory listCategory){
+    public ResponseEntity<List<ToDoListDTO>> getToDoListByCategory(@PathVariable ListCategory listCategory) {
         List<ToDoList> toDoLists = toDoListService.findAllListsByCategory(listCategory);
 
-        if(toDoLists.isEmpty()){
-            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        if (toDoLists.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else {
+            List<ToDoListDTO> toDoListDTOS = new ArrayList<>();
+            for (ToDoList toDoList : toDoLists) {
+                ToDoListDTO toDoListDTO = new ToDoListDTO(toDoList.getId(), toDoList.getTitle(), toDoList.getListCategory());
+                toDoListDTOS.add(toDoListDTO);
+            }
+            return new ResponseEntity<>(toDoListDTOS, HttpStatus.OK);
         }
-        else{
-            return new ResponseEntity<>(toDoLists,HttpStatus.OK);
+    }
+
+    //get categories
+    @GetMapping(value = "/category")
+    public ResponseEntity<List<String>> getAllListCategories() {
+        List<String> categories = new ArrayList<>();
+        for (ListCategory category : ListCategory.values()) {
+            categories.add(category.name());
         }
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
 }

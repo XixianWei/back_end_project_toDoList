@@ -3,6 +3,7 @@ package com.example.toDoList.controller;
 import com.example.toDoList.models.ListCategory;
 import com.example.toDoList.models.ToDo;
 import com.example.toDoList.models.ToDoList;
+import com.example.toDoList.services.ToDoListService;
 import com.example.toDoList.services.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +22,9 @@ public class ToDoController {
 
     @Autowired
     ToDoService toDoService;
+
+    @Autowired
+    ToDoListService toDoListService;
 
     //get all to-dos
     @GetMapping
@@ -41,11 +45,20 @@ public class ToDoController {
     }
 
     //add a new to-do
-    @PostMapping
-    public ResponseEntity<ToDo> newToDo(@RequestBody ToDo toDo) {
-        toDoService.saveToDo(toDo);
-        return new ResponseEntity<>(toDo, HttpStatus.CREATED);
+    @PostMapping("/{toDoListId}")
+    public ResponseEntity<ToDo> newToDo(@RequestBody ToDo toDo, @PathVariable Long toDoListId) {
+        Optional<ToDoList> toDoList = toDoListService.getListById(toDoListId);
+        if(toDoList.isPresent()){
+            ToDoList toDoList1 = toDoList.get();
+            toDo.setToDoList(toDoList1);
+            toDoService.saveToDo(toDo);
+            return new ResponseEntity<>(toDo, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
+
+
 
     //update a to-do by id
     @PutMapping(value = "/{id}")
