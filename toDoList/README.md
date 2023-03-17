@@ -30,6 +30,60 @@ This is a simple ToDoList application that allows users to create, view, update 
 5. Once you're logged in, you can create new to-do lists and add to-dos to those lists.
 6. You can view all of your to-do lists and to-dos, edit them, or delete them as needed.
 
+## URLs:
+Add a user:
+POST(body)
+http://localhost:8080/users
+
+Get all users:
+GET
+http://localhost:8080/users
+
+Get all categories of to-do lists:
+GET
+http://localhost:8080/to_do_lists/category
+
+Filter get all to-do lists by category
+Get
+http://localhost:8080/to_do_lists/category/{CATAGORY}
+
+Add a to-do list:
+POST(body)
+http://localhost:8080/to_do_lists
+
+Delete a to do list:
+DELETE
+http://localhost:8080/to_do_lists/{id}
+
+Get all to-do lists:
+GET
+http://localhost:8080/to_do_lists
+
+Update a to-do list:
+PUT(body)
+http://localhost:8080/to_do_lists/{id}
+
+Get list by id:
+GET
+http://localhost:8080/to_do_lists/{id}
+
+
+Add a to-do:
+POST(body)
+http://localhost:8080/to_dos/13
+
+Filter all to-dos by due date:
+GET
+http://localhost:8080/to_dos/by_due_date/2023-02-28
+
+Get a user and their lists:
+GET
+http://localhost:8080/users/user-list/{id}
+
+Delete a finished to-do from a user's list
+PUT
+http://localhost:8080/users/{id}/to-do-list/{id}/to-do/{id}
+
 
 
 ### What was our motivation?
